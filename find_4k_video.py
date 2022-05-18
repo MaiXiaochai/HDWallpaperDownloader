@@ -56,6 +56,8 @@ def find_and_move_4k(src_dir_path, to_dir_path, vertical=False):
         except Exception as err:
             pass
 
+    print(f"[ Total moved: {moved} ]")
+
 
 def remove_empty_dir(dir_path, total=0):
     """
