@@ -25,11 +25,9 @@ def get_video_info(v_path):
     return file_type, width, height
 
 
-def main():
-    src_dir_path = r"I:\videos\博弈论\未整理"
-    to_dir_path = r"I:\videos\博弈论\4K"
-
+def find_and_move_4k(src_dir_path, to_dir_path, vertical=False):
     four_k = 3840 * 2160
+    four_k_tuple = (3840, 2160)
     bad_ext = ['rar', 'zip', 'chm', 'jpg', 'png']
 
     moved = 0
@@ -39,12 +37,16 @@ def main():
             if ext in bad_ext:
                 continue
 
+            # info demo: ('video', 2160, 3840)
             info = get_video_info(i)
 
             if info[0] != 'video':
                 continue
 
             if info[1] * info[2] != four_k:
+                continue
+
+            if vertical and info[1] != four_k_tuple[1]:
                 continue
 
             file_move(i, to_dir_path)
@@ -81,6 +83,14 @@ def del_empty_dirs():
     remove_empty_dir(src_dir_path)
 
 
+def find_vertical_video_4k():
+    """找到 4k竖屏视频，移动到目标文件夹"""
+    src_dir_path = r"G:\videos\bilibili"
+    to_dir_path = r"G:\videos\b站高清舞蹈\4K竖屏"
+    find_and_move_4k(src_dir_path, to_dir_path, True)
+
+
 if __name__ == '__main__':
-    # main()
-    del_empty_dirs()
+    # find_and_move_4k()
+    find_vertical_video_4k()
+    # del_empty_dirs()
